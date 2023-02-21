@@ -1,5 +1,5 @@
-const OPENWEATHERMAPAPIKEY = '427f3d32f2c7374e9c98879b46875762';
-const GOOGLEMAPSAPIKEY = 'AIzaSyAAzErg_L14luhh7CpWk5dUepd5TFhkvq0';
+const OPENWEATHERMAPAPIKEY = '';
+const GOOGLEMAPSAPIKEY = '';
 
 
 const search = document.getElementById("weather-data-search");
