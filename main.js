@@ -53,6 +53,14 @@ function setMapPos(_lat, _lon) {
 
 
 function searchPlace() {
+  const _city = search.value.trim();
+  if (_city == null || _city == '') {
+    alert('Input city...');
+    search.value = '';
+    search.focus();
+    return;
+  }
+
   // Animate search input magnifying glass
   searchGlass.animate([
     {
@@ -69,8 +77,6 @@ function searchPlace() {
     duration: 300,
     iterations: 1,
   });
-
-  const _city = search.value;
 
   // SET LAT & LON BASED ON CITYinput VIA GEOAPI
   let _lat = 0;
