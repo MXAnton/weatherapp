@@ -104,11 +104,28 @@ img[src=""] {
     font-size: .7rem;
     opacity: .7;
 }
+#place p {
+    transform-origin: left top;
+}
 
 
 .weather-card {
     padding: 1rem;
+
+    transform-origin: bottom;
+    animation: scaleup .4s ease-out;
 }
 .weather-card p {
     margin-top: .5rem;
+}
+
+
+
+@keyframes scaleup {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
 }

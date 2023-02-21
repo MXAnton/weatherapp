@@ -42,7 +42,6 @@ function setMapPos(_lat, _lon) {
 
   map.setZoom(10);
   infoWindow.setPosition(pos);
-  // infoWindow.setContent("Location found.");
   infoWindow.setContent(
     '<div class="weather-card"><h2 class="weather-card__weather"></h2><p class="weather-card__temp"></p><p class="weather-card__feels-like"></p><p class="weather-card__humidity"></p><p class="weather-card__rain"></p><p class="weather-card__wind"></p></div>'
   );
@@ -73,6 +72,8 @@ function searchPlace() {
       place.querySelector('.place__country-flag').src = `https://flagsapi.com/${json[0].country}/flat/32.png`;
       place.querySelector('.place__lat').textContent = _lat;
       place.querySelector('.place__lon').textContent = _lon;
+
+      animatePlaceTexts();
 
       searchWeather(_lat, _lon);
     })
@@ -109,4 +110,21 @@ function searchWeather(_lat, _lon) {
       _wind.textContent = `Wind: ${parseInt(json.wind.speed)} m/s`;
     }
   );
+}
+
+
+const placeTextsScaleUp = [
+  { transform: 'scale(0)' },
+  { transform: 'scale(1)' }
+];
+const placeTextsTiming = {
+  duration: 300,
+  iterations: 1,
+}
+function animatePlaceTexts() {
+  place.querySelector('.place__name').animate(placeTextsScaleUp, placeTextsTiming);
+  place.querySelector('.place__country').animate(placeTextsScaleUp, placeTextsTiming);
+  place.querySelector('.place__country-flag').animate(placeTextsScaleUp, placeTextsTiming);
+  place.querySelector('.place__lat').animate(placeTextsScaleUp, placeTextsTiming);
+  place.querySelector('.place__lon').animate(placeTextsScaleUp, placeTextsTiming);
 }
