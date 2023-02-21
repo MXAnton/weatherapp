@@ -70,6 +70,7 @@ function searchPlace() {
 
       place.querySelector('.place__name').textContent = json[0].name;
       place.querySelector('.place__country').textContent = json[0].country;
+      place.querySelector('.place__country-flag').src = `https://flagsapi.com/${json[0].country}/flat/32.png`;
       place.querySelector('.place__lat').textContent = _lat;
       place.querySelector('.place__lon').textContent = _lon;
 

@@ -21,6 +21,10 @@ button:hover {
     opacity: .8;
 }
 
+img[src=""] {
+    display: none;
+}
+
 
 .search {
     padding: 2rem 17px;
