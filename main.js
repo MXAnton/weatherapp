@@ -3,6 +3,7 @@ const GOOGLEMAPSAPIKEY = 'AIzaSyAAzErg_L14luhh7CpWk5dUepd5TFhkvq0';
 
 
 const search = document.getElementById("weather-data-search");
+const searchGlass = document.getElementById("weather-data-search__glass");
 const place = document.getElementById("place");
 
 
@@ -43,7 +44,7 @@ function setMapPos(_lat, _lon) {
   map.setZoom(10);
   infoWindow.setPosition(pos);
   infoWindow.setContent(
-    '<div class="weather-card"><h2 class="weather-card__weather"></h2><p class="weather-card__temp"></p><p class="weather-card__feels-like"></p><p class="weather-card__humidity"></p><p class="weather-card__rain"></p><p class="weather-card__wind"></p></div>'
+    '<div class="weather-card"><h2 class="weather-card__weather"></h2><p>Temperature: <strong class="weather-card__temp"></strong></p><p>Feels like: <strong class="weather-card__feels-like"></strong></p><p>Humidity: <strong class="weather-card__humidity"></strong></p><p>Rain: <strong class="weather-card__rain"></strong></p><p>Wind: <strong class="weather-card__wind"></strong></p></div>'
   );
   infoWindow.open(map);
   map.setCenter(pos);
@@ -52,11 +53,28 @@ function setMapPos(_lat, _lon) {
 
 
 function searchPlace() {
+  // Animate search input magnifying glass
+  searchGlass.animate([
+    {
+      transform: 'rotate(0)'
+    },
+    {
+      transform: 'rotate(359deg)'
+    },
+    {
+      transform: 'rotate(720deg)'
+    }
+  ], 
+  {
+    duration: 300,
+    iterations: 1,
+  });
+
   const _city = search.value;
 
   // SET LAT & LON BASED ON CITYinput VIA GEOAPI
-  let _lat = 59.3294;
-  let _lon = 18.063240;
+  let _lat = 0;
+  let _lon = 0;
 
   fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${_city}&limit=1&appid=${OPENWEATHERMAPAPIKEY}`)
     .then(res => res.json())
@@ -69,6 +87,7 @@ function searchPlace() {
 
       place.querySelector('.place__name').textContent = json[0].name;
       place.querySelector('.place__country').textContent = json[0].country;
+      place.querySelector('.place__country-flag').src = ''; // Raise old first, new can take time to load
       place.querySelector('.place__country-flag').src = `https://flagsapi.com/${json[0].country}/flat/32.png`;
       place.querySelector('.place__lat').textContent = _lat;
       place.querySelector('.place__lon').textContent = _lon;
@@ -80,10 +99,12 @@ function searchPlace() {
     .catch (error => {
       console.warn('Could not find data. Error: ' + error);
       alert('Could not find data for: ' + _city);
-      search.value = '';
-      search.focus();
     });
+    
+    search.value = '';
+    search.focus();
 }
+
 function searchWeather(_lat, _lon) {
   // GET WEATHER
   fetch(
@@ -99,15 +120,17 @@ function searchWeather(_lat, _lon) {
       const _wind = _weatherCard.querySelector(".weather-card__wind");
 
       _weather.textContent = `${json.weather[0].main}, ${json.weather[0].description}`;
-      _temp.textContent = `Temperature: ${parseInt(json.main.temp)} °C`;
-      _feelsLike.textContent = `Feels like: ${parseInt(json.main.feels_like)} °C`;
-      _humidity.textContent = `Humidity: ${parseInt(json.main.humidity)} %`;
+      _temp.textContent = `${parseInt(json.main.temp)} °C`;
+      _feelsLike.textContent = `${parseInt(json.main.feels_like)} °C`;
+      _humidity.textContent = `${parseInt(json.main.humidity)} %`;
       try {
-        _rain.textContent = `Rain: ${parseInt(json.rain['1h'])} mm last hour`;
+        _rain.parentElement.style.display = 'block';
+        _rain.textContent = `${parseInt(json.rain['1h'])} mm last hour`;
       } catch {
+        _rain.parentElement.style.display = 'none';
         console.warn('No rain data available.');
       }
-      _wind.textContent = `Wind: ${parseInt(json.wind.speed)} m/s`;
+      _wind.textContent = `${parseInt(json.wind.speed)} m/s`;
     }
   );
 }
