@@ -75,6 +75,12 @@ function searchPlace() {
       place.querySelector('.place__lon').textContent = _lon;
 
       searchWeather(_lat, _lon);
+    })
+    .catch (error => {
+      console.warn('Could not find data. Error: ' + error);
+      alert('Could not find data for: ' + _city);
+      search.value = '';
+      search.focus();
     });
 }
 function searchWeather(_lat, _lon) {
