@@ -83,7 +83,7 @@ async function searchPlace() {
 
   // SET LAT & LON BASED ON CITYinput VIA GEOAPI
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${_city}&limit=1&appid=${OPEN_WEATHERMAP_API_KEY}`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${_city}&limit=1&appid=${OPEN_WEATHERMAP_API_KEY}`
   )
     .then((_res) => {
       return _res.json();
