@@ -1,5 +1,3 @@
-const OPEN_WEATHERMAP_API_KEY = "";
-
 const search = document.getElementById("weather-data-search");
 const searchGlass = document.getElementById("weather-data-search__glass");
 
@@ -157,7 +155,7 @@ async function searchWeather(_lat, _lon) {
   tempElement.textContent = `${parseInt(response.main.temp)} °C`;
   feelsLikeElement.textContent = `${parseInt(response.main.feels_like)} °C`;
   humidityElement.textContent = `${parseInt(response.main.humidity)} %`;
-  console.log(response);
+
   try {
     rainElement.parentElement.style.display = "block";
     rainElement.textContent = `${parseInt(response.rain["1h"])} mm last hour`;
