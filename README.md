@@ -1,6 +1,6 @@
 ![Screenshot of the website.](/public/images/showcase.png)
 
-# 🧩 Weather app
+# ⛅ Weather app
 Weather application. Input city (& countrycode if needed) to get the current weather data integrated in Google Maps.
 
 ## ► Try it now!
